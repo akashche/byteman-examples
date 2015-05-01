@@ -16,36 +16,35 @@
  * <http://www.gnu.org/licenses/>.
  */
 
-package com.redhat.byteman.jli.agent;
+package com.redhat.byteman.jli.agentasm;
 
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.util.TraceClassVisitor;
+
+import java.io.PrintWriter;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
+import static org.objectweb.asm.ClassWriter.COMPUTE_FRAMES;
+import static org.objectweb.asm.ClassWriter.COMPUTE_MAXS;
+
 /**
- * java.lang.instrument transformer example
+ * java.lang.instrument hello world ASM transformer
  */
-class JliTransformer implements ClassFileTransformer {
+class JliTransformerAsm implements ClassFileTransformer {
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                             ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
         if (null != loader) {
-            System.out.println("Transform called, classLoader: [" + loader + "], className: [" + className + "]," +
-                    " protectionDomain: [" + protectionDomain + "]");
-            if ("com/redhat/byteman/jli/JliApp".equals(className)) {
-                byte[] transformed = new byte[classfileBuffer.length];
-                System.arraycopy(classfileBuffer, 0, transformed, 0, classfileBuffer.length);
-                for (int i = 0; i < transformed.length - 3; i++) {
-                    if ('J' == transformed[i] && 'L' == transformed[i+1] && 'I' == transformed[i+2]) {
-                        transformed[i] = 'T';
-                        transformed[i + 1] = 'R';
-                        transformed[i + 2] = 'N';
-                        break;
-                    }
-                }
-                return transformed;
-            }
+            ClassWriter cw = new ClassWriter(COMPUTE_MAXS | COMPUTE_FRAMES);
+            ClassReader cr = new ClassReader(classfileBuffer);
+            TraceClassVisitor tv = new TraceClassVisitor(cw, new PrintWriter(System.out));
+            JliClassVisitor cv = new JliClassVisitor(tv);
+            cr.accept(cv, 0);
+            return cw.toByteArray();
         }
         return classfileBuffer;
     }
