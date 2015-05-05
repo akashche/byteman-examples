@@ -1,0 +1,8 @@
+RULE 02
+CLASS com.redhat.byteman.jli.JliApp
+METHOD main
+HELPER com.redhat.byteman.jli.helper.JliHelper
+AT ENTRY
+IF true
+DO doSomething("entering main")
+ENDRULE
