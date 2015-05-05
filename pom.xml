@@ -13,12 +13,14 @@
         <module>jli-app</module>
         <module>jli-agent</module>
         <module>jli-agent-asm</module>
+        <module>jli-agent-byteman</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.specification_vendor>Red Hat, Inc.</project.specification_vendor>
         <project.implementation_vendor>${project.specification_vendor}</project.implementation_vendor>
+        <version.byteman>2.2.2</version.byteman>
     </properties>
 
     <scm>

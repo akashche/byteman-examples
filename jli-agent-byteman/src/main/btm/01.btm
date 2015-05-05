@@ -1,0 +1,15 @@
+RULE 01
+CLASS com.redhat.byteman.jli.JliApp
+METHOD main
+AT ENTRY
+IF true
+DO traceln("entering main")
+ENDRULE
+
+RULE 02
+CLASS com.redhat.byteman.jli.JliApp
+METHOD main
+AT EXIT
+IF true
+DO traceln("exiting main")
+ENDRULE
