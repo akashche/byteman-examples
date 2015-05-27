@@ -63,7 +63,7 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-javaagent:${project.build.directory}/byteman-${version.byteman}.jar=script:${project.basedir}/src/main/btm/01.btm</argument>
+                        <argument>-javaagent:${project.build.directory}/byteman-${version.byteman}.jar=script:${project.basedir}/src/main/btm/01.btm,nb:${project.build.directory}/byteman-${version.byteman}.jar</argument>
                         <!--<argument>-Dorg.jboss.byteman.verbose</argument>-->
                         <argument>-jar</argument>
                         <argument>${project.build.directory}/jli-app-${project.version}.jar</argument>

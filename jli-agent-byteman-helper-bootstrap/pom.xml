@@ -3,20 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <groupId>com.redhat.byteman</groupId>
         <artifactId>byteman-examples</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>jli-agent-byteman-helper</artifactId>
+    <artifactId>jli-agent-byteman-helper-bootstrap</artifactId>
     <packaging>jar</packaging>
-    <name>JLI Agent Byteman Helper Example</name>
+    <name>JLI Agent Bootstrap Classes Example</name>
 
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jli-app</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>jli-agent-byteman-helper</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
@@ -84,8 +88,11 @@
                 <configuration>
                     <executable>java</executable>
                     <arguments>
-                        <argument>-javaagent:${project.build.directory}/byteman-${version.byteman}.jar=script:${project.basedir}/src/main/btm/02.btm</argument>
+                        <argument>
+-javaagent:${project.build.directory}/byteman-${version.byteman}.jar=script:${project.basedir}/src/main/btm/03.btm,boot:${project.build.directory}/byteman-${version.byteman}.jar
+                        </argument>
                         <!--<argument>-Dorg.jboss.byteman.verbose</argument>-->
+                        <argument>-Dorg.jboss.byteman.transform.all</argument>
                         <argument>-jar</argument>
                         <argument>${project.build.directory}/app-${project.version}.jar</argument>
                     </arguments>
@@ -93,5 +100,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>

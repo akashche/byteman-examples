@@ -24,7 +24,7 @@ package com.redhat.byteman.jli.helper;
 public class JliHelper {
 
     public static void activated() {
-        System.out.println("JliHelper#activated");
+        System.out.println("JliHelper#activated, loader: [" + JliHelper.class.getClassLoader() + "]");
     }
 
     public static void installed(String ruleName) {
@@ -41,6 +41,10 @@ public class JliHelper {
 
     public boolean doSomething(String message) {
         System.out.println("doSomething: [" + message + "]");
+        System.out.println("loader: [" + JliHelper.class.getClassLoader() + "]");
+//        System.out.println("STACKTRACE START -------------------------------");
+//        new RuntimeException().printStackTrace();
+//        System.out.println("STACKTRACE END -------------------------------");
         return true;
     }
 }

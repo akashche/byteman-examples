@@ -1,0 +1,8 @@
+RULE 03
+CLASS java.lang.String
+METHOD toLowerCase()
+HELPER com.redhat.byteman.jli.helper.JliHelper
+AT ENTRY
+IF true
+DO doSomething("string lower case called")
+ENDRULE

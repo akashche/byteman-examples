@@ -15,6 +15,7 @@
         <module>jli-agent-asm</module>
         <module>jli-agent-byteman</module>
         <module>jli-agent-byteman-helper</module>
+        <module>jli-agent-byteman-helper-bootstrap</module>
     </modules>
 
     <properties>

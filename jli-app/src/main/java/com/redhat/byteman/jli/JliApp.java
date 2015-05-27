@@ -23,6 +23,6 @@ package com.redhat.byteman.jli;
  */
 public class JliApp {
     public static void main(String[] args) {
-        System.out.println("Hi JLI!");
+        System.out.println("Hi JLI!".toLowerCase());
     }
 }
